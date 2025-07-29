@@ -27,8 +27,10 @@ module.exports.register = async (req, res) => {
 module.exports.login = async (req, res) => {
     try {
         console.log(req.body)
-        const {loginType, loginId, password} = req.body
+        let {loginType, loginId, password} = req.body
+        loginType = loginType === 'phone' ? 'phone' : undefined
         const loginRes = await selectUser(loginType, loginId)
+        console.log(loginRes)
         if (loginRes.length === 1) {
             const validateRes = bcrypt.validatePassword(password, loginRes[0].password)
             console.log(loginRes)
@@ -38,6 +40,8 @@ module.exports.login = async (req, res) => {
             } else {
                 return res.cc('用户名或密码错误！')
             }
+        } else {
+            res.cc('用户名或密码错误！')
         }
     } catch (err) {
         return res.cc(err)
