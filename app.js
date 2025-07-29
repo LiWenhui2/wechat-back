@@ -15,6 +15,6 @@ app.use((req, res, next) => {
 })
 const userRouter = require('./routes/user')
 app.use('/api/user', userRouter)
-app.listen(1234, () => {
+app.listen(5000, () => {
     console.log('http://43.159.41.42:1234')
 })
